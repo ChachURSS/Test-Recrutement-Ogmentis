@@ -89,6 +89,8 @@ export default class MenuUI {
 
         this.menuContainer.appendChild(this.menu);
         document.body.appendChild(this.menuContainer);
+
+        
     }
 
     addButton(text, onClick) {
