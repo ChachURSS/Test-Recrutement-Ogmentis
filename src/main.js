@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import DeformableModel from './model/deformableModel.js';
-import Controls from '../../ui/controls.js';
+import Controls from './ui/controls.js';
 
 let scene, camera, renderer, deformableModel, controls;
 
