@@ -1,0 +1,20 @@
+{
+  "name": "threejs-deformable-model",
+  "version": "1.0.0",
+  "description": "A Three.js project that includes a deformable 3D model with user interaction.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "live-server",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "three": "^0.140.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
