@@ -10,6 +10,7 @@ class DeformableModel {
         flatShading: false
     });
     this.mesh = new THREE.Mesh(this.geometry, this.material);
+    this.radius = 0.2;
 }
 
     applyDeformation(deformationAmount) {
@@ -26,7 +27,6 @@ class DeformableModel {
 
     deformAtPoint(selectedPoint, newPosition) {
         const positionAttribute = this.geometry.attributes.position;
-        const radius = 0.2; // Rayon d'influence de la déformation
 
         for (let i = 0; i < positionAttribute.count; i++) {
             const x = positionAttribute.getX(i);
@@ -35,8 +35,8 @@ class DeformableModel {
             const vertex = new THREE.Vector3(x, y, z);
 
             const distance = selectedPoint.distanceTo(vertex);
-            if (distance < radius) {
-                const influence = 1 - (distance / radius);
+            if (distance < this.radius) { // Utilisation de this.radius au lieu de radius
+                const influence = 1 - (distance / this.radius);
                 vertex.lerp(newPosition, influence * 0.5);
                 positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
             }

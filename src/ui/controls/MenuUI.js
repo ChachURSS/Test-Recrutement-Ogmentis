@@ -91,6 +91,7 @@ export default class MenuUI {
         document.body.appendChild(this.menuContainer);
 
         this.createRenderingOptions();
+        this.createRadiusSlider();
 
         this.menuContainer.appendChild(this.menu);
         document.body.appendChild(this.menuContainer);
@@ -263,6 +264,47 @@ export default class MenuUI {
     optionsContainer.appendChild(shadowContainer);
     optionsContainer.appendChild(wireframeContainer);
     this.menu.appendChild(optionsContainer);
+}
+    createRadiusSlider() {
+    const radiusContainer = document.createElement('div');
+    radiusContainer.style.marginBottom = '20px';
+    radiusContainer.style.color = 'white';
+
+    const radiusLabel = document.createElement('label');
+    radiusLabel.textContent = 'Rayon de déformation: ';
+    radiusLabel.style.display = 'block';
+    radiusLabel.style.marginBottom = '5px';
+
+    const valueDisplay = document.createElement('span');
+    valueDisplay.textContent = this.model?.radius || '0.5';
+    valueDisplay.style.marginLeft = '10px';
+
+    const slider = document.createElement('input');
+    Object.assign(slider, {
+        type: 'range',
+        min: '0.1',
+        max: '2',
+        step: '0.1',
+        value: this.model?.radius || '0.5'
+    });
+
+    Object.assign(slider.style, {
+        width: '100%',
+        height: '20px'
+    });
+
+    slider.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        valueDisplay.textContent = value.toFixed(1);
+        if (this.model) {
+            this.model.radius = value;
+        }
+    });
+
+    radiusLabel.appendChild(valueDisplay);
+    radiusContainer.appendChild(radiusLabel);
+    radiusContainer.appendChild(slider);
+    this.menu.appendChild(radiusContainer);
 }
 
 }
