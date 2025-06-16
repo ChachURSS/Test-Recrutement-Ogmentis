@@ -23,11 +23,12 @@ export default class Controls {
         this.popup = new PopupUI();
         this.menu = new MenuUI(() => {
             this.popup.show(
-                'Are you sure you want to reset the model?',
+                'Êtes vus sûr de vouloir réinitialiser le modèle ?',
                 () => this.model.reset(),
                 () => {}
             );
         });
+        this.menu.setModel(this.model); 
         this.slider = new SliderUI((value) => {
             this.model.applyDeformation(value);
         });
