@@ -20,23 +20,23 @@ threejs-deformable-model
    cd threejs-deformable-model
    ```
 
-# Dépendances
+### Dépendances
    ```
    npm install
    ```
 
-# Lancement du serveur
+### Lancement du serveur
    ```
    npx http-server
    ```
 
-   # ou
+    ou
 
    ```
    npm start
    ```
 
-# Lien du navigateur
+### Lien du navigateur
    `http://localhost:8080` 
 
 ## Features demandées
