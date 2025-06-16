@@ -2,14 +2,15 @@ import * as THREE from 'three';
 
 class DeformableModel {
     constructor() {
-        this.geometry = new THREE.BoxGeometry(1, 1, 1, 32, 32, 32);
-        this.originalPositions = this.geometry.attributes.position.array.slice();
-        this.material = new THREE.MeshPhongMaterial({ 
-            color: 0x00ff00,
-            wireframe: false
-        });
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-    }
+    this.geometry = new THREE.BoxGeometry(1, 1, 1, 32, 32, 32);
+    this.originalPositions = this.geometry.attributes.position.array.slice();
+    this.material = new THREE.MeshPhongMaterial({ 
+        color: 0x00ff00,
+        wireframe: false,
+        flatShading: false
+    });
+    this.mesh = new THREE.Mesh(this.geometry, this.material);
+}
 
     applyDeformation(deformationAmount) {
         const positionAttribute = this.geometry.attributes.position;

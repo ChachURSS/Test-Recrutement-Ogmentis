@@ -90,7 +90,10 @@ export default class MenuUI {
         this.menuContainer.appendChild(this.menu);
         document.body.appendChild(this.menuContainer);
 
-        
+        this.createRenderingOptions();
+
+        this.menuContainer.appendChild(this.menu);
+        document.body.appendChild(this.menuContainer);
     }
 
     addButton(text, onClick) {
@@ -211,5 +214,55 @@ export default class MenuUI {
     setModel(model) {
         this.model = model;
     }
+
+
+    createRenderingOptions() {
+    const optionsContainer = document.createElement('div');
+    optionsContainer.style.marginBottom = '20px';
+    optionsContainer.style.color = 'white';
+
+    // Option pour les ombres
+    const shadowContainer = document.createElement('div');
+    shadowContainer.style.marginBottom = '10px';
+    const shadowCheckbox = document.createElement('input');
+    shadowCheckbox.type = 'checkbox';
+    shadowCheckbox.id = 'shadows';
+    const shadowLabel = document.createElement('label');
+    shadowLabel.htmlFor = 'shadows';
+    shadowLabel.textContent = ' Ombres sur les faces';
+    shadowLabel.style.marginLeft = '8px';
+
+    shadowCheckbox.addEventListener('change', (e) => {
+        if (this.model) {
+            this.model.getMesh().material.flatShading = e.target.checked;
+            this.model.getMesh().material.needsUpdate = true;
+        }
+    });
+
+    // Option pour les arêtes
+    const wireframeContainer = document.createElement('div');
+    const wireframeCheckbox = document.createElement('input');
+    wireframeCheckbox.type = 'checkbox';
+    wireframeCheckbox.id = 'wireframe';
+    const wireframeLabel = document.createElement('label');
+    wireframeLabel.htmlFor = 'wireframe';
+    wireframeLabel.textContent = ' Afficher les arêtes';
+    wireframeLabel.style.marginLeft = '8px';
+
+    wireframeCheckbox.addEventListener('change', (e) => {
+        if (this.model) {
+            this.model.getMesh().material.wireframe = e.target.checked;
+        }
+    });
+
+    // Assemblage des éléments
+    shadowContainer.appendChild(shadowCheckbox);
+    shadowContainer.appendChild(shadowLabel);
+    wireframeContainer.appendChild(wireframeCheckbox);
+    wireframeContainer.appendChild(wireframeLabel);
+    optionsContainer.appendChild(shadowContainer);
+    optionsContainer.appendChild(wireframeContainer);
+    this.menu.appendChild(optionsContainer);
+}
 
 }
