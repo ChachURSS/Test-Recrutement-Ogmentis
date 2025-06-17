@@ -92,6 +92,7 @@ export default class MenuUI {
 
         this.createRenderingOptions();
         this.createRadiusSlider();
+        this.createShapeSelector(); 
 
         this.menuContainer.appendChild(this.menu);
         document.body.appendChild(this.menuContainer);
@@ -110,7 +111,7 @@ export default class MenuUI {
     createResetButton() {
         const resetButton = createStyledButton('Réinitialisation', {
             marginTop: '20px',
-            width: '100%' // Pour le bouton reset qui est dans le menu
+            width: '100%' 
         });
         
         resetButton.addEventListener('click', this.onReset);
@@ -306,5 +307,75 @@ export default class MenuUI {
     radiusContainer.appendChild(slider);
     this.menu.appendChild(radiusContainer);
 }
+
+createIncreaseVerticesButton() {
+        const button = createStyledButton('+ Sommets', () => {
+            if (window.deformableModel) {
+                window.deformableModel.increaseVertices();
+                this.onReset(); 
+            }
+        });
+        this.menu.appendChild(button);
+    }
+
+createShapeSelector() {
+        const container = document.createElement('div');
+        Object.assign(container.style, {
+            margin: '20px 0',
+            color: 'white'
+        });
+
+        const label = document.createElement('div');
+        label.textContent = 'Type de forme';
+        label.style.marginBottom = '10px';
+
+        const shapes = [
+            { name: 'Cube', value: 'cube', vertices: 8 },
+            { name: 'Pyramide', value: 'pyramid', vertices: 5 },
+            { name: 'Octaèdre', value: 'octahedron', vertices: 6 },
+            { name: 'Tétraèdre', value: 'tetrahedron', vertices: 4 }
+        ];
+
+        const select = document.createElement('select');
+        Object.assign(select.style, {
+            width: '100%',
+            padding: '5px',
+            backgroundColor: '#444',
+            color: 'white',
+            border: '1px solid #666',
+            borderRadius: '4px'
+        });
+
+        const verticesInfo = document.createElement('div');
+        verticesInfo.style.marginTop = '5px';
+        verticesInfo.style.fontSize = '0.9em';
+        verticesInfo.style.color = '#aaa';
+
+        shapes.forEach(shape => {
+            const option = document.createElement('option');
+            option.value = shape.value;
+            option.text = shape.name;
+            select.appendChild(option);
+        });        select.addEventListener('change', (e) => {
+            const selectedShape = shapes.find(s => s.value === e.target.value);
+            console.log('Changement de forme:', e.target.value);
+            if (window.deformableModel) {
+                console.log('deformableModel trouvé');
+                window.deformableModel.updateShape(e.target.value);
+                verticesInfo.textContent = `Nombre de sommets : ${selectedShape.vertices}`;
+                this.onReset(); 
+            } else {
+                console.error('deformableModel non trouvé');
+            }
+        });
+
+
+        verticesInfo.textContent = `Nombre de sommets : ${shapes[0].vertices}`;
+
+        container.appendChild(label);
+        container.appendChild(select);
+        container.appendChild(verticesInfo);
+        this.menu.appendChild(container);
+    }
 
 }

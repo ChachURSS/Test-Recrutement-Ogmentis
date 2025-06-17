@@ -24,7 +24,8 @@ function init() {
     scene.add(pointLight);
 
     deformableModel = new DeformableModel();
-    scene.add(deformableModel.getMesh());
+    window.deformableModel = deformableModel; // Expose le modèle globalement
+    scene.add(deformableModel.mesh); // Utilise directement .mesh au lieu de getMesh()
 
     controls = new Controls(deformableModel, camera, renderer);
 
